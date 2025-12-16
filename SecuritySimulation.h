@@ -1,3 +1,5 @@
+#pragma once
+
 // Member 7 - Security & Simulation
 // Pattern: Chain of Responsibility (Sequential Events)
 // This file contains the emergency automation sequences
