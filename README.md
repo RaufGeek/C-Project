@@ -39,24 +39,6 @@ The system allows users to manage smart home devices, switch modes and states, s
 
 ---
 
-## 🏗️ Project Structure
-
-C-Project-main/
-│
-├── main.cpp
-├── MSHSystem.h / MSHSystem.cpp
-├── Device.h
-├── Devices.h / Devices.cpp
-├── DetectorFactory.h / DetectorFactory.cpp
-├── Modes.h / Modes.cpp
-├── Memento.h / Memento.cpp
-├── Scenarios.h / Scenarios.cpp
-├── Logger.h / Logger.cpp
-├── manual.txt
-├── msh_log.txt
-├── .vscode/
-│ └── tasks.json
-
 
 ## ▶️ How to Build and Run (Windows)
 
