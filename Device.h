@@ -4,110 +4,62 @@
 #include <string>
 #include <iostream>
 
-using std::string;
-using std::cout;
-using std::endl;
-
-/* =========================
-   ABSTRACT BASE DEVICE
-   ========================= */
 class Device {
 protected:
-    int id;
-    string name;
-    string type;
-    bool isPowered;
-    bool isActive;
+    int _id;
+    std::string _name;
+    std::string _type;
+    bool _powered;
+    bool _active;
 
 public:
-    Device(int _id, const string& _name, const string& _type)
-        : id(_id),
-          name(_name),
-          type(_type),
-          isPowered(false),
-          isActive(true) {}
+    Device(const std::string& name, const std::string& type)
+        : _id(0), _name(name), _type(type), _powered(false), _active(true) {}
 
     virtual ~Device() {}
-
-    // Prototype hook (some devices may override)
     virtual Device* clone() const = 0;
 
-    // Device operations
+    void setId(int id) { _id = id; }
+    int getId() const { return _id; }
+
+    const std::string& getName() const { return _name; }
+    const std::string& getType() const { return _type; }
+
+    bool isPowered() const { return _powered; }
+    bool isActive() const { return _active; }
+
     virtual void turnOn() {
-        if (isActive)
-            isPowered = true;
+        if (!_active) {
+            std::cout << "Cannot power on " << _name << " (Broken/Inactive).\n";
+            return;
+        }
+        _powered = true;
     }
 
-    virtual void turnOff() {
-        isPowered = false;
+    virtual void turnOff() { _powered = false; }
+    virtual bool isUserPowerOffAllowed() const { return true; }
+
+    void setBroken(bool broken) { _active = !broken; }
+
+    virtual void configure() {
+        std::cout << "Enter name for " << _type << ": ";
+        std::cin >> _name;
     }
 
-    // TEMPLATE METHOD
     virtual void printStatus() const {
-        cout << "ID: " << id << endl;
-        cout << "Name: " << name << endl;
-        cout << "Type: " << type << endl;
-        cout << "Power: " << (isPowered ? "ON" : "OFF") << endl;
-        printSpecificStatus();
+        std::cout << "[" << _type << "] ID: " << _id
+                  << " | Name: " << _name
+                  << " | Power: " << (_powered ? "ON" : "OFF")
+                  << " | Status: " << (_active ? "OK" : "BROKEN")
+                  << "\n";
     }
-
-protected:
-    // Hook for subclasses
-    virtual void printSpecificStatus() const {}
 };
 
-/* =========================
-   ABSTRACT SENSOR
-   ========================= */
 class Sensor : public Device {
-protected:
-    bool triggered;
-
 public:
-    Sensor(int _id, const string& _name)
-        : Device(_id, _name, "Sensor"),
-          triggered(false) {}
-
+    Sensor(const std::string& name, const std::string& type)
+        : Device(name, type) {}
     virtual ~Sensor() {}
-
-    virtual void detect() = 0;
-};
-
-/* =========================
-   ALARM (NON-CLONEABLE)
-   ========================= */
-class Alarm : public Device {
-public:
-    Alarm(int _id)
-        : Device(_id, "Alarm", "Security") {}
-
-    // Non-cloneable device
-    Device* clone() const {
-        return NULL;
-    }
-
-    void turnOff() {
-        cout << "WARNING: Alarm cannot be turned off manually!" << endl;
-    }
-
-protected:
-    void printSpecificStatus() const {
-        cout << "Alarm status: READY" << endl;
-    }
-};
-
-/* =========================
-   FACTORY METHOD (BASE)
-   ========================= */
-class DeviceFactory {
-public:
-    static Device* createDevice(const string& type, int id) {
-        if (type == "Alarm")
-            return new Alarm(id);
-
-        // Future devices added by other members
-        return NULL;
-    }
 };
 
 #endif
