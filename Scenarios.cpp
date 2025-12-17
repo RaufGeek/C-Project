@@ -26,7 +26,7 @@ void securitySequence(std::vector<Device*>& devs){
     Logger::instance().log("EVENT: Motion Detected");
     std::cout<<"\n*** SECURITY ALERT ***\n";
     triggerAlarms(devs);
-    sleepSeconds(2);
+    sleepSeconds(5);
     std::cout<<"Turning lights ON...\n";
     lights(devs,true);
     std::cout<<"CALLING POLICE...\n";
@@ -62,3 +62,4 @@ void simulateFailure(std::vector<Device*>& devs){
 }
 
 }
+
