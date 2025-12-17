@@ -1,0 +1,27 @@
+MY SWEET HOME (MSH) - USER MANUAL
+
+[1] Get Home Status
+- Shows current Mode/State and all device statuses.
+
+[2] Add Device
+- L: Light
+- C: Camera
+- T: TV (Samsung/LG)
+- D: Detector Pair (Smoke+Gas)
+- S: Sound System
+
+[3] Remove Device
+- Remove by ID (Alarm cannot be removed)
+
+[4]/[5] Power ON/OFF
+- Some critical devices cannot be powered off (Alarm/Detector/Camera)
+
+[6] Change Mode
+- Normal / Evening / Party / Cinema
+
+[7] Change State
+- Normal / Sleep / High Performance / Previous (Undo)
+
+[99] Motion (Security)
+[98] Smoke/Gas (Fire)
+[97] Device Failure
